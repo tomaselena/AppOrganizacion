@@ -1,0 +1,183 @@
+// Declaración de variables
+var tareas = [];
+var categorias = {};
+
+// Función para agregar tareas
+function agregarTarea(tarea, categoria) {
+  tareas.push({
+    nombre: tarea,
+    categoria: categoria
+  });
+
+  if (!categorias[categoria]) {
+    categorias[categoria] = [];
+  }
+  categorias[categoria].push(tarea);
+
+  console.log("Tarea agregada: " + tarea + " (" + categoria + ")");
+}
+
+// Función para listar tareas
+function listarTareas(filtroCategoria) {
+  console.log("Lista de tareas:");
+  tareas.forEach(function(tarea, index) {
+    if (!filtroCategoria || tarea.categoria === filtroCategoria) {
+      console.log(index + 1 + ". " + tarea.nombre + " (" + tarea.categoria + ")");
+    }
+  });
+}
+
+// Función para eliminar tareas
+function eliminarTarea(index) {
+  var tareaEliminada = tareas.splice(index - 1, 1)[0];
+  var categoria = tareaEliminada.categoria;
+  var indexCategoria = categorias[categoria].indexOf(tareaEliminada.nombre);
+  categorias[categoria].splice(indexCategoria, 1);
+
+  console.log("Tarea eliminada exitosamente: " + tareaEliminada.nombre + " (" + tareaEliminada.categoria + ")");
+}
+
+// Función para listar categorías
+function listarCategorias() {
+  console.log("Lista de categorías:");
+  for (var categoria in categorias) {
+    console.log("- " + categoria + " (" + categorias[categoria].length + " tareas)");
+  }
+}
+
+// Agregar algunas tareas de ejemplo
+agregarTarea("Limpiar la casa", "Hogar");
+agregarTarea("Comprar alimentos", "Compras");
+agregarTarea("Hacer ejercicio", "Salud");
+agregarTarea("Lavar ropa", "Hogar");
+
+// Listar las tareas
+listarTareas();
+
+// Filtrar las tareas por categoría
+listarTareas("Hogar");
+
+// Eliminar una tarea
+eliminarTarea(2);
+
+// Listar las tareas nuevamente
+listarTareas();
+
+// Listar las categorías
+listarCategorias();
+// Declaración de variables
+var tareas = [];
+var categorias = {};
+var recordatorios = {};
+
+// Función para agregar tareas
+function agregarTarea(tarea, categoria, fechaRecordatorio) {
+  tareas.push({
+    nombre: tarea,
+    categoria: categoria,
+    fechaRecordatorio: fechaRecordatorio
+  });
+
+  if (!categorias[categoria]) {
+    categorias[categoria] = [];
+  }
+  categorias[categoria].push(tarea);
+
+  if (fechaRecordatorio) {
+    if (!recordatorios[fechaRecordatorio]) {
+      recordatorios[fechaRecordatorio] = [];
+    }
+    recordatorios[fechaRecordatorio].push(tarea);
+  }
+
+  console.log("Tarea agregada: " + tarea + " (" + categoria + ")");
+  if (fechaRecordatorio) {
+    console.log("Recordatorio agendado para " + fechaRecordatorio);
+  }
+}
+
+// Función para listar tareas
+function listarTareas(filtroCategoria) {
+  console.log("Lista de tareas:");
+  tareas.forEach(function(tarea, index) {
+    if (!filtroCategoria || tarea.categoria === filtroCategoria) {
+      console.log(index + 1 + ". " + tarea.nombre + " (" + tarea.categoria + ")");
+      if (tarea.fechaRecordatorio) {
+        console.log("   Recordatorio: " + tarea.fechaRecordatorio);
+      }
+    }
+  });
+}
+
+// Función para eliminar tareas
+function eliminarTarea(index) {
+  var tareaEliminada = tareas.splice(index - 1, 1)[0];
+  var categoria = tareaEliminada.categoria;
+  var indexCategoria = categorias[categoria].indexOf(tareaEliminada.nombre);
+  categorias[categoria].splice(indexCategoria, 1);
+
+  if (tareaEliminada.fechaRecordatorio) {
+    var fechaRecordatorio = tareaEliminada.fechaRecordatorio;
+    var indexRecordatorio = recordatorios[fechaRecordatorio].indexOf(tareaEliminada.nombre);
+    recordatorios[fechaRecordatorio].splice(indexRecordatorio, 1);
+  }
+
+  console.log("Tarea eliminada exitosamente: " + tareaEliminada.nombre + " (" + tareaEliminada.categoria + ")");
+}
+
+// Función para listar categorías
+function listarCategorias
+const tasks = [];
+
+// Function to add a task
+function addTask(task) {
+  tasks.push(task);
+}
+
+// Function to list all tasks
+function listTasks() {
+  console.log("All Tasks:");
+  for (let i = 0; i < tasks.length; i++) {
+    console.log(`${i + 1}. ${tasks[i].name}`);
+  }
+}
+
+// Function to add a note to a task
+function addNote(taskIndex, note) {
+  tasks[taskIndex].notes.push(note);
+}
+
+// Function to attach a file to a task
+function attachFile(taskIndex, file) {
+  tasks[taskIndex].files.push(file);
+}
+
+// Function to assign a task to a user
+function assignTask(taskIndex, user) {
+  tasks[taskIndex].assignedTo = user;
+}
+
+// Function to integrate with Google Calendar
+function addToCalendar(task) {
+  // Code to add the task to Google Calendar
+}
+
+// Example usage
+const task1 = {
+  name: "Buy groceries",
+  notes: [],
+  files: [],
+  assignedTo: null
+};
+
+addTask(task1);
+addNote(0, "Need to buy bread and milk");
+attachFile(0, "grocery_list.txt");
+assignTask(0, "John Doe");
+addToCalendar(task1);
+
+listTasks();
+
+// Output:
+// All Tasks:
+// 1. Buy groceries
